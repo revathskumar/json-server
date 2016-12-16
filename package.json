@@ -16,6 +16,7 @@
     "errorhandler": "^1.2.0",
     "express": "^4.9.5",
     "json-parse-helpfulerror": "^1.0.3",
+    "jsonapi-serializer": "^3.4.2",
     "lodash": "^4.11.2",
     "lowdb": "^0.14.0",
     "method-override": "^2.1.2",

@@ -1,4 +1,6 @@
 const url = require('url')
+const JSONAPISerializer = require('jsonapi-serializer').Serializer;
+
 const express = require('express')
 const _ = require('lodash')
 const pluralize = require('pluralize')
@@ -206,7 +208,11 @@ module.exports = (db, name) => {
         expand(element, _expand)
       })
 
-    res.locals.data = chain.value()
+    var Serializer = new JSONAPISerializer(name, {
+      attributes: Object.keys(chain.value()[0])
+    });
+
+    res.locals.data =  Serializer.serialize(chain.value());
     next()
   }
 
@@ -231,7 +237,11 @@ module.exports = (db, name) => {
       // /posts/1?_expand=user
       expand(clone, _expand)
 
-      res.locals.data = clone
+      var Serializer = new JSONAPISerializer(name, {
+        attributes: Object.keys(clone)
+      });
+
+      res.locals.data =  Serializer.serialize(clone);
     }
 
     next()
